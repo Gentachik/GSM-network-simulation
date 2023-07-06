@@ -20,23 +20,10 @@ public  class VRDstation extends JPanel implements MessageCounter{
 
         JButton terminate = addTerminateButton();
         this.add(terminate, BorderLayout.SOUTH);
-
+        label.setText(String.valueOf(0));
         checkBox = addCheckBoxToClear("Clear messages");
         checkBox.setSelected(true);
         this.add(checkBox, BorderLayout.CENTER);
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    label.setText(String.valueOf(receivedMessages));
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        thread.start();
         this.add(label, BorderLayout.NORTH);
     }
     private JButton addTerminateButton() {
@@ -91,5 +78,9 @@ public  class VRDstation extends JPanel implements MessageCounter{
     @Override
     public void getMessageCounter(int value) {
         receivedMessages=value;
+    }
+    @Override
+    public void setMessageCount(ChangeMessageCountEvent event) {
+        label.setText(String.valueOf(event.getMessageCount()));
     }
 }
