@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class VBDLogic implements VBDInteface {
     private Inter logic;
-    private int id;
+    private final int id;
     private int speed=5;
     private boolean go=true;
-    private String message;
+    private final String message;
     private String telephoneNumber;
     private boolean isActive=true;
     public VBDLogic(VBDstation station) {
@@ -31,52 +31,50 @@ public class VBDLogic implements VBDInteface {
         this.isActive=status;
     }
     private void run(){
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                while (go) {
-                    if (isActive) {
-                        if(logic!=null){
-                            if(!logic.getVRDList().isEmpty()) {
-                                ArrayList<BTSLogic> btsList=logic.getBTSLeftList();
-                                int index=0;
-                                int minMessage=5;
-                                for (int i=0;i< btsList.size();i++){
-                                    BTSLogic btsLogic=btsList.get(i);
-                                    if(btsLogic.getMessageCount()<minMessage){
-                                        index=i;
-                                        minMessage= btsLogic.getMessageCount();
-                                    }
+        Thread thread = new Thread(() -> {
+            while (go) {
+                if (isActive) {
+                    if(logic!=null){
+                        if(!logic.getVRDList().isEmpty()) {
+                            ArrayList<BTSLogic> btsList=logic.getBTSLeftList();
+                            int index=0;
+                            int minMessage=5;
+                            for (int i=0;i< btsList.size();i++){
+                                BTSLogic btsLogic=btsList.get(i);
+                                if(btsLogic.getMessageCount()<minMessage){
+                                    index=i;
+                                    minMessage= btsLogic.getMessageCount();
                                 }
-                                BTSLogic workBTS=btsList.get(index);
-                                workBTS.takeMessage(readySMS());
                             }
+                            BTSLogic workBTS=btsList.get(index);
+                            workBTS.takeMessage(readySMS());
                         }
                     }
-                    try {
-                        Thread.sleep(speed * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
-
+                try {
+                    Thread.sleep(speed * 1000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
         thread.start();
     }
     public void terminateStation() {go=false;}
     public void setLogic(Inter inter){logic=inter;}
     private String encodeNumber(String number) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         number = number.replace("+", "");
         if (number.length() % 2 != 0) {
             number = number + "F";
         }
         int i = 0;
         while (i < number.length()) {
-            result += String.valueOf(number.charAt(i + 1)) + String.valueOf(number.charAt(i));
+            result.append(number.charAt(i + 1)).append(number.charAt(i));
             i += 2;
         }
-        return result;
+        return result.toString();
     }
     private String encodeMessage(String message) {
         StringBuilder result = new StringBuilder();

@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class BTSstation extends JPanel {
     private Inter logic;
     private static int idCounter=1;
@@ -21,19 +18,15 @@ public class BTSstation extends JPanel {
     private JButton createTerminateButton(){
         JButton button = new JButton("Terminate");
         button.setBackground(Color.ORANGE);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Container parentContainer = BTSstation.this.getParent();
-                if (parentContainer instanceof JPanel) {
-                    if(logic!=null){
-                        logic.deleteBTS(id);
-                    }
-                    JPanel parentPanel = (JPanel) parentContainer;
-                    parentPanel.remove(BTSstation.this);
-                    parentPanel.revalidate();
-                    parentPanel.repaint();
+        button.addActionListener(e -> {
+            Container parentContainer = BTSstation.this.getParent();
+            if (parentContainer instanceof JPanel parentPanel) {
+                if(logic!=null){
+                    logic.deleteBTS(id);
                 }
+                parentPanel.remove(BTSstation.this);
+                parentPanel.revalidate();
+                parentPanel.repaint();
             }
         });
         return button;

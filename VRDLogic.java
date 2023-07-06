@@ -1,7 +1,6 @@
 public class VRDLogic {
-    private int id;
-    private Thread refreshThread;
-    private MessageCounter station;
+    private final int id;
+    private MessageCountListener station;
     private int messageCount = 0;
     private boolean go = true;
     private boolean refresh = true;
@@ -20,16 +19,16 @@ public class VRDLogic {
         }
     }
     public int getId() {return id;}
-    public void setStation(MessageCounter station) {this.station = station;}
+    public void setStation(MessageCountListener station) {this.station = station;}
     public String getTelephoneNumber(){return telephoneNumber;}
     private void refresh() {
-        refreshThread = new Thread(new Runnable() {
+        Thread refreshThread = new Thread(new Runnable() {
             public void run() {
                 while (go) {
                     if (refresh) {
-                        messageCount=0;
+                        messageCount = 0;
                         station.setMessageCount(new ChangeMessageCountEvent(this, messageCount));
-                }
+                    }
                     try {
                         Thread.sleep(10000);
                     } catch (InterruptedException e) {

@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class BSCContainer extends JPanel {
     private Inter logic;
     private final JPanel labelsPanel;
@@ -20,41 +17,35 @@ public class BSCContainer extends JPanel {
         JScrollPane scrollPane = new JScrollPane(labelsPanel);
         this.add(scrollPane, BorderLayout.CENTER);
 
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                BSCLayer newPanel = new BSCLayer();
+        addButton.addActionListener(e -> {
+            BSCLayer newPanel = new BSCLayer();
 
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.fill = GridBagConstraints.BOTH;
-                gbc.weightx = 1.0;
-                gbc.weighty = 1.0;
-                if(logic!=null){
-                    logic.getBSCLayer(newPanel);
-                }
-                labelsPanel.add(newPanel, gbc);
-                labelsPanel.revalidate();
-                labelsPanel.repaint();
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.weightx = 1.0;
+            gbc.weighty = 1.0;
+            if(logic!=null){
+                logic.getBSCLayer(newPanel);
             }
+            labelsPanel.add(newPanel, gbc);
+            labelsPanel.revalidate();
+            labelsPanel.repaint();
         });
 
         JButton removeButton = new JButton("Remove");
         removeButton.setBackground(Color.RED);
 
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int componentCount = labelsPanel.getComponentCount();
-                if (componentCount > 1) {
-                    Component lastPanel = labelsPanel.getComponent(componentCount - 1);
-                    if(logic!=null) {
-                        BSCLayer layer=(BSCLayer) lastPanel;
-                        logic.deleteBSCLayer(layer);
-                    }
-                    labelsPanel.remove(lastPanel);
-                    labelsPanel.revalidate();
-                    labelsPanel.repaint();
+        removeButton.addActionListener(e -> {
+            int componentCount = labelsPanel.getComponentCount();
+            if (componentCount > 1) {
+                Component lastPanel = labelsPanel.getComponent(componentCount - 1);
+                if(logic!=null) {
+                    BSCLayer layer=(BSCLayer) lastPanel;
+                    logic.deleteBSCLayer(layer);
                 }
+                labelsPanel.remove(lastPanel);
+                labelsPanel.revalidate();
+                labelsPanel.repaint();
             }
         });
 

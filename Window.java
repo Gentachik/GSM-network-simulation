@@ -1,33 +1,28 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 public class Window {
     private Inter logic;
-    private JPanel VBD;
-    private JPanel VRD;
-    private BSCContainer BSC;
-    private BTSLayer leftBTS;
-    private BTSLayer rightBTS;
-    private JFrame window;
+    private final BSCContainer BSC;
+    private final BTSLayer leftBTS;
+    private final BTSLayer rightBTS;
 
     public Window() {
-        window = new JFrame("Project 3");
+        JFrame window = new JFrame("GSM network simulation");
         window.setSize(800, 400);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel container = new JPanel(new GridLayout(1, 5));
 
-        VBD = createVBD();
-        VRD = createVRD();
+        JPanel VBD = createVBD();
+        JPanel VRD = createVRD();
         BSC = createBSC();
         leftBTS = createLeftBTS();
         rightBTS = createRightBTS();
 
         container.add(VBD);
-        container.add(new JScrollPane(leftBTS)); // Wrap leftBTS panel with JScrollPane
+        container.add(new JScrollPane(leftBTS));
         container.add(BSC);
-        container.add(new JScrollPane(rightBTS)); // Wrap rightBTS panel with JScrollPane
+        container.add(new JScrollPane(rightBTS));
         container.add(VRD);
 
         window.setContentPane(container);
@@ -46,26 +41,22 @@ public class Window {
         JPanel labelsPanel = new JPanel();
         labelsPanel.setLayout(new BoxLayout(labelsPanel, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(labelsPanel); // Wrap labelsPanel with a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(labelsPanel);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        addingButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                VRDstation label = new VRDstation();
-                labelsPanel.add(label);
-                if (logic != null) {
-                    logic.getVRD(label);
-                }
-                panel.revalidate();
+        addingButton.addActionListener(e -> {
+            VRDstation label = new VRDstation();
+            labelsPanel.add(label);
+            if (logic != null) {
+                logic.getVRD(label);
             }
+            panel.revalidate();
         });
         return panel;
     }
 
     private BSCContainer createBSC() {
-        BSCContainer panel = new BSCContainer();
-        return panel;
+        return new BSCContainer();
     }
 
     private BTSLayer createLeftBTS() {
@@ -96,18 +87,15 @@ public class Window {
         JScrollPane scrollPane = new JScrollPane(labelsPanel); // Wrap labelsPanel with a JScrollPane
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        addingButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String message = JOptionPane.showInputDialog("Enter your message:");
-                if (message != null && !message.isEmpty()) {
-                    VBDstation station = new VBDstation(message);
-                    if (logic != null) {
-                        logic.getVBD(station);
-                    }
-                    labelsPanel.add(station);
-                    panel.revalidate();
+        addingButton.addActionListener(e -> {
+            String message = JOptionPane.showInputDialog("Enter your message:");
+            if (message != null && !message.isEmpty()) {
+                VBDstation station = new VBDstation(message);
+                if (logic != null) {
+                    logic.getVBD(station);
                 }
+                labelsPanel.add(station);
+                panel.revalidate();
             }
         });
 

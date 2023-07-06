@@ -11,45 +11,43 @@ public class BSCLogic {
         run();
     }
     private void run(){
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
-                while (go) {
-                    if(!messageList.isEmpty()){
-                        if(layer.getNextLayer()==null){
-                            int index=0;
-                            int minMessage=5;
-                            ArrayList<BTSLogic> btsLogics=inter.getBTSRightList();
-                            for(int i=0;i< btsLogics.size();i++){
-                                if(btsLogics.get(i).getMessageCount()<minMessage){
-                                    index=i;
-                                    minMessage=btsLogics.get(i).getMessageCount();
-                                }
+        Thread thread = new Thread(() -> {
+            while (go) {
+                if(!messageList.isEmpty()){
+                    if(layer.getNextLayer()==null){
+                        int index=0;
+                        int minMessage=5;
+                        ArrayList<BTSLogic> btsLogics=inter.getBTSRightList();
+                        for(int i=0;i< btsLogics.size();i++){
+                            if(btsLogics.get(i).getMessageCount()<minMessage){
+                                index=i;
+                                minMessage=btsLogics.get(i).getMessageCount();
                             }
-                            btsLogics.get(index).takeMessage(messageList.get(0));
-                            messageList.remove(0);
-                            Collections.rotate(messageList, -1);
-                        }else {
-                            int index=0;
-                            int minMessage=5;
-                            ArrayList<BSCLogic> bscLogics=layer.getNextLayer().getBscList();
-                            for(int i=0;i< bscLogics.size();i++){
-                                if(bscLogics.get(i).getMessageCount()<minMessage){
-                                    index=i;
-                                    minMessage=bscLogics.get(i).getMessageCount();
-                                }
-                            }
-                            bscLogics.get(index).takeMessage(messageList.get(0));
-                            messageList.remove(0);
-                            Collections.rotate(messageList, -1);
                         }
+                        btsLogics.get(index).takeMessage(messageList.get(0));
+                        messageList.remove(0);
+                        Collections.rotate(messageList, -1);
+                    }else {
+                        int index=0;
+                        int minMessage=5;
+                        ArrayList<BSCLogic> bscLogics=layer.getNextLayer().getBscList();
+                        for(int i=0;i< bscLogics.size();i++){
+                            if(bscLogics.get(i).getMessageCount()<minMessage){
+                                index=i;
+                                minMessage=bscLogics.get(i).getMessageCount();
+                            }
+                        }
+                        bscLogics.get(index).takeMessage(messageList.get(0));
+                        messageList.remove(0);
+                        Collections.rotate(messageList, -1);
                     }
-                    try {
-                        Random random = new Random();
-                        int randomNumber = random.nextInt(11) + 5;
-                        Thread.sleep(randomNumber*1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                }
+                try {
+                    Random random = new Random();
+                    int randomNumber = random.nextInt(11) + 5;
+                    Thread.sleep(randomNumber*1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         });

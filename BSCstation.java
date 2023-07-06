@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 public  class BSCstation extends JPanel {
     private static int stationNumber=1;
     private final int id;
@@ -19,16 +17,12 @@ public  class BSCstation extends JPanel {
     private JButton createTerminateButton(){
         JButton button = new JButton("Terminate");
         button.setBackground(Color.ORANGE);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Container parentContainer = BSCstation.this.getParent();
-                if (parentContainer instanceof JPanel) {
-                    JPanel parentPanel = (JPanel) parentContainer;
-                    parentPanel.remove(BSCstation.this);
-                    parentPanel.revalidate();
-                    parentPanel.repaint();
-                }
+        button.addActionListener(e -> {
+            Container parentContainer = BSCstation.this.getParent();
+            if (parentContainer instanceof JPanel parentPanel) {
+                parentPanel.remove(BSCstation.this);
+                parentPanel.revalidate();
+                parentPanel.repaint();
             }
         });
         return button;

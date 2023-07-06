@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class Logic
         implements
         Inter,
@@ -52,13 +51,13 @@ public class Logic
         return messageCount;
     }
     @Override
-    public void getBTSLeft(BTSstation station) throws StationNotFoundException {
+    public void getBTSLeft(BTSstation station) {
         BTSLogic logic=new BTSLogic(station);
         logic.setLogic(this);
         btsLeftList.add(logic);
     }
     @Override
-    public void getBTSRight(BTSstation station) throws StationNotFoundException {
+    public void getBTSRight(BTSstation station) {
         BTSLogic logic=new BTSLogic(station);
         logic.setLogic(this);
         logic.setRight();

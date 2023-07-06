@@ -54,6 +54,5 @@ public  class BTSLayer extends JPanel {
         }).start();
     }
     public void setRight(){isLeft=false;}
-    public boolean getSide(){return isLeft;}
     public void setLogic(Inter inter){logic=inter;}
 }
