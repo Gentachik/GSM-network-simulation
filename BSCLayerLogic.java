@@ -3,9 +3,8 @@ import java.util.ArrayList;
 public class BSCLayerLogic implements BSCInterface {
     private BSCLayerLogic nextLayer=null;
     private Inter logic;
-    private int id;
-    private ArrayList<BSCLogic> bscList;
-    private boolean go=true;
+    private final int id;
+    private final ArrayList<BSCLogic> bscList;
     public BSCLayerLogic(BSCLayer layer) {
         bscList=new ArrayList<>();
         id=layer.getId();
@@ -13,7 +12,7 @@ public class BSCLayerLogic implements BSCInterface {
     public int getId() {return id;}
     @Override
     public void getBSCstation(BSCstation station) {
-        BSCLogic bscLogic=new BSCLogic(station);
+        BSCLogic bscLogic=new BSCLogic();
         bscList.add(bscLogic);
         bscLogic.setLayer(this);
         bscLogic.setLogic(logic);
@@ -26,7 +25,6 @@ public class BSCLayerLogic implements BSCInterface {
         }
         return messageCount;
     }
-    public void terminate(){go=false;}
     public ArrayList<BSCLogic> getBscList(){return bscList;}
     public void takeMessage(String message) {
         int minMessage = 5;

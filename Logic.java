@@ -1,7 +1,3 @@
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class Logic
@@ -95,7 +91,6 @@ public class Logic
                 for(int i=0;i<layer.getBscList().size();i++){
                     layer.getBscList().get(i).terminate();
                 }
-                layer.terminate();
                 station.terminate();
                 bscLayerLogics.get(bscLayerLogics.size()-1).setNextLayer(null);
                 break;
@@ -114,18 +109,6 @@ public class Logic
     }
     @Override
     public ArrayList<VRDLogic> getVRDList() {return vrdList;}
-    @Override
-    public void save() throws IOException {
-        FileOutputStream fileOut = new FileOutputStream("project3.bin");
-        OutputStreamWriter writer = new OutputStreamWriter(fileOut, StandardCharsets.UTF_8);
-        for (int i=0;i< vbdList.size();i++){
-            writer.write("id: "+String.valueOf(vbdList.get(i).getId()) + " ");
-            writer.write(",message: "+vbdList.get(i).getMessage() + " ");
-            writer.write(",count of messages: "+String.valueOf(vbdList.get(i).getMessageSent()) + "\n");
-        }
-        writer.close();
-        fileOut.close();
-    }
     @Override
     public void deleteIdVBD(int id) {
         for(VBDLogic station : vbdList){

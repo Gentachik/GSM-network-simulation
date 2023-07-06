@@ -8,7 +8,6 @@ public  class VRDstation extends JPanel implements MessageCounter{
     private VRDdelete VRDdelete;
     private int receivedMessages;
     private static int idCounter=1;
-    private boolean isSelected=true;
     private int id;
     private JCheckBox checkBox;
     private JLabel label =new JLabel();

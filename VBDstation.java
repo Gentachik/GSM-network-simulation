@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VBDstation extends JPanel {
-    private boolean isActive=true;
     private VBDInteface logic;
     private VBDdelete deleteStation;
     private static int numberCounter=1;

@@ -5,7 +5,7 @@ public  class BTSLogic {
     private ArrayList<String> messageList=new ArrayList<>();
     private boolean isLeft=true;
     private boolean go=true;
-    private int id;
+    private final int id;
     private Inter logic;
     public BTSLogic(BTSstation station) throws StationNotFoundException {
         id=station.getID();

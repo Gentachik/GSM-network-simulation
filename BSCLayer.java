@@ -5,7 +5,7 @@ public class BSCLayer extends JPanel {
     private BSCInterface logic;
     private static int idCounter=1;
     private boolean go=true;
-    private int id;
+    private final int id;
     private int messagesCount;
     BSCLayer(){
         super();

@@ -3,15 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public  class BSCstation extends JPanel {
-    private JLabel stationNumberLabel;
     private static int stationNumber=1;
-    private int id;
+    private final int id;
     BSCstation() {
         super();
         this.setLayout(new BorderLayout());
         id=stationNumber;
         stationNumber++;
-        stationNumberLabel = new JLabel("Station " + id);
+        JLabel stationNumberLabel = new JLabel("Station " + id);
         this.add(stationNumberLabel, BorderLayout.CENTER);
 
         JButton terminateButton = createTerminateButton();

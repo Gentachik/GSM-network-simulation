@@ -6,10 +6,8 @@ public class BSCLogic {
     private Inter inter;
     private BSCLayerLogic layer;
     private boolean go=true;
-    private int id;
     private ArrayList<String> messageList=new ArrayList<>();
-    public BSCLogic(BSCstation station) {
-        id=station.getId();
+    public BSCLogic() {
         run();
     }
     private void run(){

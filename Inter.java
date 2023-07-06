@@ -15,6 +15,4 @@ public interface Inter {
     ArrayList<BTSLogic> getBTSRightList();
     ArrayList<BSCLayerLogic> getBSCLayerList();
     ArrayList<VRDLogic> getVRDList();
-
-    void save() throws IOException;
 }

@@ -2,10 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-
 public class Window {
     private Inter logic;
     private JPanel VBD;
@@ -18,18 +14,7 @@ public class Window {
     public Window() {
         window = new JFrame("Project 3");
         window.setSize(800, 400);
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        window.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                try {
-                    logic.save();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                System.exit(0);
-            }
-        });
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel container = new JPanel(new GridLayout(1, 5));
 

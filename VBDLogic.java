@@ -8,7 +8,6 @@ public class VBDLogic implements VBDInteface {
     private int speed=5;
     private boolean go=true;
     private String message;
-    private int messageSent;
     private String telephoneNumber;
     private boolean isActive=true;
     public VBDLogic(VBDstation station) {
@@ -31,7 +30,6 @@ public class VBDLogic implements VBDInteface {
     public void setStatus(boolean status) {
         this.isActive=status;
     }
-    public int getSpeed() {return speed;}
     private void run(){
         Thread thread = new Thread(new Runnable() {
             public void run() {
@@ -51,7 +49,6 @@ public class VBDLogic implements VBDInteface {
                                 }
                                 BTSLogic workBTS=btsList.get(index);
                                 workBTS.takeMessage(readySMS());
-                                messageSent++;
                             }
                         }
                     }
@@ -103,27 +100,6 @@ public class VBDLogic implements VBDInteface {
         }
         return result.toString();
     }
-    private static String decodeMessage(String encodeMessage){
-        String result;
-        result=encodeMessage.substring(0, 36);
-        result=result.substring(20);
-        result=decodeNumber(result);
-        return result;
-    }
-    private static String decodeNumber(String encodedNumber) {
-        String result = "";
-        int i = 0;
-        while (i < encodedNumber.length()) {
-            result += String.valueOf(encodedNumber.charAt(i + 1)) + String.valueOf(encodedNumber.charAt(i));
-            i += 2;
-        }
-        if (result.endsWith("F")) {
-            result = result.substring(0, result.length() - 1);
-        }
-        result= result.substring(4);
-        result = "+" + result;
-        return result;
-    }
     private String readySMS(){
         ArrayList<VRDLogic> vrdList= logic.getVRDList();
         Random random = new Random();
@@ -144,6 +120,4 @@ public class VBDLogic implements VBDInteface {
         encodedSMS=octets+encodedSMS;
         return encodedSMS;
     }
-    public String getMessage() {return message;}
-    public int getMessageSent() {return messageSent;}
 }

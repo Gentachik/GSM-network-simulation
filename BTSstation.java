@@ -4,17 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class BTSstation extends JPanel {
-    private JLabel stationNumberLabel;
-    private int massages=0;
     private Inter logic;
     private static int idCounter=1;
-    private int id;
+    private final int id;
     BTSstation() {
         super();
         this.setLayout(new BorderLayout());
         id=idCounter;
         idCounter++;
-        stationNumberLabel = new JLabel("Station " + id);
+        JLabel stationNumberLabel = new JLabel("Station " + id);
         this.add(stationNumberLabel, BorderLayout.CENTER);
 
         JButton terminateButton = createTerminateButton();

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class BSCContainer extends JPanel {
     private Inter logic;
-    private JPanel labelsPanel;
+    private final JPanel labelsPanel;
     BSCContainer(){
         super();
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
